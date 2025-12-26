@@ -1,96 +1,70 @@
-# Api Starter Kit
+# Symfony API Platform + Cloudinary Media Starter
 
-[//]: <> ( todo udpate image and add new docker commands, tell about interfaces )
+A simple boilerplate for handling media (images, videos, documents) with **Symfony API Platform** and **Cloudinary**.
+It uses Flysystem and VichUploader to keep file storage clean and flexible.
 
+## Features
+- Decoupled storage via Flysystem (easy to switch to S3, GCP, etc.)
+- MediaObject entity based on schema.org
+- Automatic file naming to avoid collisions
+- Docker-ready (PHP, Nginx, Database)
 
-Starter kit for API with 
-[Symfony Skeleton](https://symfony.com/),
-[Doctrine](https://www.doctrine-project.org/), 
-[Maker Bundle](https://symfony.com/doc/current/bundles/SymfonyMakerBundle/index.html), 
-[Migrations Bundle](https://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html), 
-[Api-Platform](https://api-platform.com/) and 
-[Lexik JWT-auth](https://jwt.io/).
+## Prerequisites
+- Cloudinary account (free tier is enough)
+- Docker & Docker Compose
 
-Kit has also already created User entity with all crud routes
+## Quick Setup
 
-Kit has 3 docker containers: **php, nginx** and **db** 
-
-![poster](poster.png)
-## Installation
-
-Download the project<br>
+### 1. Configure environment
 ```bash
-composer create-project kadirov/api-starter-kit --ignore-platform-reqs --no-scripts
+cp .env.example .env
 ```
 
-Go to the project directory
+### Update Cloudinary credentials in .env:
 ```bash
-cd api-starter-kit
+CLOUD_NAME=your_cloud_name
+API_KEY=your_api_key
+API_SECRET=your_api_secret
 ```
 
-
-Run docker containers
+### 2. Start containers
 ```bash
 docker compose up -d
 ```
-
-Install composer scripts
+### 3. Install dependencies
 ```bash
 docker compose exec php composer install
 ```
 
-To install project run command
+### 4. Initialize project
 ```bash
 docker compose exec php bin/console ask:install
 ```
 
-**Done! You can open <a href="http://localhost:8507/api" target="_blank">http://localhost:8507/api</a> via browser. 
-By the way, you can change this port by changing ```DOCKER_NGINX_PORT``` variable in [.env](.env) file.** 
+## How It Works
 
-## Docker
-For enter to php container run 
+* VichUploader handles file uploads
+
+* Flysystem abstracts storage
+
+* Cloudinary adapter uploads files
+
+* API returns direct Cloudinary URLs
+
+## Test Cloudinary
 ```bash
-docker compose exec php bash
+docker compose exec php bin/console app:test-cloudinary
 ```
+Checkout terminal
+A test file should appear in your Cloudinary dashboard.
 
-For enter to db container run 
-```bash
-docker compose exec db bash
-```
+## Usage
 
-For enter to nginx container run 
-```bash
-docker compose exec nginx bash
-```
+* Open http://localhost:{nginx-port}/api
+ (Swagger UI)
 
-You can change containers prefix by changing ```DOCKER_PROJECT_NAME``` variable in [.env](.env) file.  
+* Use POST /api/media_objects
 
-Also, you can change public ports of nginx and mysql by changing ```DOCKER_NGINX_PORT``` and ```DOCKER_DATABASE_PORT```
+* Upload a file (multipart/form-data)
 
-Database allows connections only from localhost. 
-Because of this when you use the project on production and want to connect to database from your computer
-you should connect via ssh bridge.
-
-## Backup
-For automatic backups use:
-```bash
-docker compose --profile backup up -d
-```
-
-In your [.gitlab-ci.yml](.gitlab-ci.yml), the backup profile is configured
-to run on the production server and perform backups daily at 00:00 UTC.
-
-To run manual backup:
-```bash
-docker compose exec backup /usr/local/bin/backup.sh
-```
-
-## Cron
-
-You can use [docker/php/cron-file](docker/php/cron-file) for cron jobs. 
-After you must re-build php container by running command:<br> 
-```docker compose up -d --build```
-
-## Swagger 
-You can change project name and description on swagger by editing file
-[config/packages/api_platform.yaml](config/packages/api_platform.yaml)
+* Response includes a Cloudinary contentUrl

@@ -22,5 +22,19 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    Cloudinary\Cloudinary:
+        arguments:
+            -
+                cloud:
+                    cloud_name: '%env(CLOUD_NAME)%'
+                    api_key: '%env(API_KEY)%'
+                    api_secret: '%env(API_SECRET)%'
+                url:
+                    secure: true
+
+    ThomasVantuycom\FlysystemCloudinary\CloudinaryAdapter:
+        arguments:
+            $client: '@Cloudinary\Cloudinary'
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

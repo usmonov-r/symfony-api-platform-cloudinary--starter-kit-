@@ -2,7 +2,7 @@
     
 # Symfony API Platform + Cloudinary Media Starter
 
-A simple boilerplate for handling media (images, videos, documents) with **Symfony API Platform** and **Cloudinary**.
+A boilerplate for handling media (images, videos, documents) with **Symfony API Platform** and **Cloudinary**.
 It uses Flysystem and VichUploader to keep file storage clean and flexible.
 
 [![status](https://img.shields.io/badge/status-active-success)](#)

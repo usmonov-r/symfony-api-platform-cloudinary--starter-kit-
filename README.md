@@ -1,7 +1,23 @@
+<div align="center">
+    
 # Symfony API Platform + Cloudinary Media Starter
 
 A simple boilerplate for handling media (images, videos, documents) with **Symfony API Platform** and **Cloudinary**.
 It uses Flysystem and VichUploader to keep file storage clean and flexible.
+
+[![status](https://img.shields.io/badge/status-active-success)](#)
+
+[![php](https://img.shields.io/badge/PHP-8.1%2B-FF6F00?logo=php&logoColor=white)](https://www.php.net/)
+[![symfony](https://img.shields.io/badge/Symfony-6%2F7%2F8-EA1D25?logo=symfony&logoColor=white)](https://symfony.com/)
+
+[![api-platform](https://img.shields.io/badge/API%20Platform-enabled-00B3A4?logo=api-platform&logoColor=white)](https://api-platform.com/)
+[![vich-uploader](https://img.shields.io/badge/VichUploaderBundle-uploading-43A047)](https://github.com/dustin10/VichUploaderBundle)
+[![flysystem-cloudinary](https://img.shields.io/badge/Flysystem%20Cloudinary-adapter-F57C00)](https://github.com/ThomasVantuycom/FlysystemCloudinary)
+
+[![cloudinary](https://img.shields.io/badge/Cloudinary-media%20storage-3F4EF0?logo=cloudinary&logoColor=white)](https://cloudinary.com/)
+
+
+</div>
 
 ## Features
 - Decoupled storage via Flysystem (easy to switch to S3, GCP, etc.)

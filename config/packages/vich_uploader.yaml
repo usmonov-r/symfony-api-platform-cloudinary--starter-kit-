@@ -3,6 +3,6 @@ vich_uploader:
     storage: flysystem
     mappings:
         media_object:
-            uri_prefix: 'https://res.cloudinary.com/dihyybd7h/image/upload/media_objects'
+            uri_prefix: 'https://res.cloudinary.com/dihyybd7h/image/upload'
             upload_destination: default.storage
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
